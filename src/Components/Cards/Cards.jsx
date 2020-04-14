@@ -1,11 +1,15 @@
-import React from 'react'
+import React from 'react';
 import { Card, CardContent, Typography, Grid } from "@material-ui/core";
-import styles from './Cards.module.css'
-import banglaTarikh from 'bangla-tarikh'
-import 'en2bnstr'
+import styles from './Cards.module.css';
+import banglaTarikh from 'bangla-tarikh';
+import 'en2bnstr';
+import CountUp from 'react-countup';
 
-const Cards = ({data}) => {
-    const lastUpdate = data.lastUpdate ? banglaTarikh.format('DTS MMMM, YYYYT', new Date(data.lastUpdate) ) : '';
+const Cards = ({ data : {confirmed, recovered, deaths, lastUpdate }}) => {
+    if (!confirmed) {
+        return 'তথ্য লোড হচ্ছে...... '
+    }
+    const Updated = banglaTarikh.format('DTS MMMM, YYYYT', new Date(lastUpdate) );
     
     
     return (
@@ -15,9 +19,13 @@ const Cards = ({data}) => {
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>আক্রান্ত হয়েছেন</Typography>
                         <Typography variant="h5" color="textSecondary">
-                            { data.confirmed && data.confirmed.value ? data.confirmed.value.toString().getBanglaNumber() : ''}
+                            <CountUp 
+                                start={0}
+                                end = {confirmed.value}
+                                duration = {2.5}
+                                separator = "," />
                         </Typography>
-                        <Typography color="textSecondary">সর্বশেষ আপডেট হয়েছেঃ  {lastUpdate} </Typography>
+                        <Typography color="textSecondary">সর্বশেষ আপডেট হয়েছেঃ  {Updated} </Typography>
                         <Typography variant="body2"> করোনায় সক্রিয় আক্রান্ত </Typography>
                     </CardContent>
                 </Grid>
@@ -25,9 +33,13 @@ const Cards = ({data}) => {
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>সুস্থ হয়েছেন</Typography>
                         <Typography variant="h5" color="textSecondary">
-                            { data.recovered && data.recovered.value ? data.recovered.value.toString().getBanglaNumber() : ''}
+                        <CountUp 
+                                start={0}
+                                end = {recovered.value}
+                                duration = {2.5}
+                                separator = "," />
                         </Typography>
-                        <Typography color="textSecondary">সর্বশেষ আপডেট হয়েছেঃ  {lastUpdate} </Typography>
+                        <Typography color="textSecondary">সর্বশেষ আপডেট হয়েছেঃ  {Updated} </Typography>
                         <Typography variant="body2"> করোনা থেকে সুস্থ হয়েছেন </Typography>
                     </CardContent>
                 </Grid>
@@ -35,9 +47,13 @@ const Cards = ({data}) => {
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>মারা গেছেন</Typography>
                         <Typography variant="h5" color="textSecondary">
-                            { data.deaths && data.deaths.value ? data.deaths.value.toString().getBanglaNumber() : ''}
+                        <CountUp 
+                                start={0}
+                                end = {deaths.value}
+                                duration = {2.5}
+                                separator = "," />
                         </Typography>
-                        <Typography color="textSecondary">সর্বশেষ আপডেট হয়েছেঃ  {lastUpdate} </Typography>
+                        <Typography color="textSecondary">সর্বশেষ আপডেট হয়েছেঃ  {Updated} </Typography>
                         <Typography variant="body2"> করোনায় মারা গেছেন </Typography>
                     </CardContent>
                 </Grid>
