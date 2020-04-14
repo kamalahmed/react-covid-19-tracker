@@ -1,9 +1,47 @@
 import React from 'react'
+import { Card, CardContent, Typography, Grid } from "@material-ui/core";
+import styles from './Cards.module.css'
+import banglaTarikh from 'bangla-tarikh'
+import 'en2bnstr'
 
-const Cards = () => {
+const Cards = ({data}) => {
+    const lastUpdate = data.lastUpdate ? banglaTarikh.format('DTS MMMM, YYYYT', new Date(data.lastUpdate) ) : '';
+    
+    
     return (
-        <div>
-            Cards
+        <div className={styles.container}>
+            <Grid container spacing={3} justify="center">
+                <Grid item component={Card}>
+                    <CardContent>
+                        <Typography color="textSecondary" gutterBottom>আক্রান্ত হয়েছেন</Typography>
+                        <Typography variant="h5" color="textSecondary">
+                            { data.confirmed && data.confirmed.value ? data.confirmed.value.toString().getBanglaNumber() : ''}
+                        </Typography>
+                        <Typography color="textSecondary">সর্বশেষ আপডেট হয়েছেঃ  {lastUpdate} </Typography>
+                        <Typography variant="body2"> করোনায় সক্রিয় আক্রান্ত </Typography>
+                    </CardContent>
+                </Grid>
+                <Grid item component={Card}>
+                    <CardContent>
+                        <Typography color="textSecondary" gutterBottom>সুস্থ হয়েছেন</Typography>
+                        <Typography variant="h5" color="textSecondary">
+                            { data.recovered && data.recovered.value ? data.recovered.value.toString().getBanglaNumber() : ''}
+                        </Typography>
+                        <Typography color="textSecondary">সর্বশেষ আপডেট হয়েছেঃ  {lastUpdate} </Typography>
+                        <Typography variant="body2"> করোনা থেকে সুস্থ হয়েছেন </Typography>
+                    </CardContent>
+                </Grid>
+                <Grid item component={Card}>
+                    <CardContent>
+                        <Typography color="textSecondary" gutterBottom>মারা গেছেন</Typography>
+                        <Typography variant="h5" color="textSecondary">
+                            { data.deaths && data.deaths.value ? data.deaths.value.toString().getBanglaNumber() : ''}
+                        </Typography>
+                        <Typography color="textSecondary">সর্বশেষ আপডেট হয়েছেঃ  {lastUpdate} </Typography>
+                        <Typography variant="body2"> করোনায় মারা গেছেন </Typography>
+                    </CardContent>
+                </Grid>
+            </Grid>
         </div>
     )
 }

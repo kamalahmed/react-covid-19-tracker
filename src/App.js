@@ -4,7 +4,6 @@ import styles from './App.module.css'
 import { fetchData } from "./API";
 
 
-
 class App extends Component {
   state = {
     data : {},
@@ -22,7 +21,7 @@ class App extends Component {
     const { data } = this.state;
     return (
       <div className={styles.container}>
-        <Cards data={data}/>
+        <Cards data={data} />
         <CountryPicker />
         <Chart />
       </div>
