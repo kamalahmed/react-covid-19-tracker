@@ -16,3 +16,20 @@ export const fetchData = async () => {
         console.log('ups! got some error,', error);
     }
 };
+
+export const fetchDailyData = async () => {
+    try {
+        const {data} =  await axios.get(`${apiEndPoint}/daily`);
+        
+        const necessaryData = data.map((dailyData) => ({
+            confirmed : dailyData.confirmed.total,
+            deaths : dailyData.deaths.total,
+            date : dailyData.reportDate,
+
+        }));
+        return necessaryData;
+
+    } catch (error) {
+        console.log('ups! got some error,', error);
+    }
+};
