@@ -4,6 +4,8 @@ import styles from './Cards.module.css';
 import banglaTarikh from 'bangla-tarikh';
 import 'en2bnstr';
 import CountUp from 'react-countup';
+import cx from 'classnames';
+
 
 const Cards = ({ data : {confirmed, recovered, deaths, lastUpdate }}) => {
     if (!confirmed) {
@@ -15,7 +17,7 @@ const Cards = ({ data : {confirmed, recovered, deaths, lastUpdate }}) => {
     return (
         <div className={styles.container}>
             <Grid container spacing={3} justify="center">
-                <Grid item component={Card}>
+                <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.infected)}>
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>আক্রান্ত হয়েছেন</Typography>
                         <Typography variant="h5" color="textSecondary">
@@ -29,7 +31,7 @@ const Cards = ({ data : {confirmed, recovered, deaths, lastUpdate }}) => {
                         <Typography variant="body2"> করোনায় সক্রিয় আক্রান্ত </Typography>
                     </CardContent>
                 </Grid>
-                <Grid item component={Card}>
+                <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.recovered)}>
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>সুস্থ হয়েছেন</Typography>
                         <Typography variant="h5" color="textSecondary">
@@ -43,7 +45,7 @@ const Cards = ({ data : {confirmed, recovered, deaths, lastUpdate }}) => {
                         <Typography variant="body2"> করোনা থেকে সুস্থ হয়েছেন </Typography>
                     </CardContent>
                 </Grid>
-                <Grid item component={Card}>
+                <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.death)}>
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>মারা গেছেন</Typography>
                         <Typography variant="h5" color="textSecondary">
